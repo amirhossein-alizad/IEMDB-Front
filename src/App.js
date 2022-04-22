@@ -1,39 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import './css/base.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PrivateRoute from './Components/PrivateRoute';
+import Login from './Pages/login';
+import Signup from './Pages/signup';
+import { toast } from 'react-toastify';
+import NotFound from './Pages/notFound';
+import Movies from './Pages/movies';
 
 function App() {
   return (
     <Router>
-      <div className="App">
-        <Switch>
+        <Routes>
           
-          <Route exact path="/login">
+          <Route path="/" element={<Login></Login>}></Route>
 
-          </Route>
+          <Route path="/signup" element={<Signup></Signup>}></Route>
 
-          <Route exact path="/signup">
+          <Route path="/movies" element={<Movies></Movies>}></Route>
+          
+          {/* <PrivateRoute exact path="/movies">
 
-          </Route>
+          </PrivateRoute> */}
 
-          <Route exact path="/movies">
+          {/* <PrivateRoute exact path="/movies/:id">
 
-          </Route>
+          </PrivateRoute>
 
-          <Route exact path="/movies/:id">
+          <PrivateRoute exact path="/actors/:id">
 
-          </Route>
+          </PrivateRoute>
 
-          <Route exact path="/actors/:id">
-
-          </Route>
-
-          <Route exact path="/watchlist">
+          <PrivateRoute exact path="/watchlist">
             
-          </Route>
+          </PrivateRoute> */}
 
-        </Switch>
-      </div>
+          <Route path="*" element={<NotFound></NotFound>}></Route>
+
+        </Routes>
     </Router>
   );
 }

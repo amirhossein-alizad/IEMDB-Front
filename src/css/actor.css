@@ -1,0 +1,34 @@
+.actor-image {
+    background-image: url("../assets/images/tomholland.jpeg");
+    background-size: 100% 100%;
+}
+
+.actor-movies {
+    border-radius: 1.5rem;
+}
+
+.actor-movie-image {
+    overflow: hidden;
+    height: 15rem;
+    width: 15rem;
+    border-radius: 0.3rem;
+}
+
+.actor-movies-row {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.actor-details {
+    font-weight: bold;
+    font-size: larger;
+}
+
+.actor-movies-text {
+    font-weight: bold;
+    font-size: larger;
+}
+
+.actor-properties {
+    font-size: larger;
+}

@@ -1,0 +1,42 @@
+.recommendations-container {
+    margin-top: 15rem;
+    border-radius: 1.5rem;
+}
+
+.movie-box {
+    border-radius: 1.5rem;
+    overflow: hidden;
+}
+
+.movie-poster {
+    background-image: url("../assets/images/godfather.jpg");
+    background-size: 100% 100%;
+}
+
+.movie-title {
+    font-weight: bolder;
+    font-size: larger;
+}
+
+.delete-icon {
+    color: red;
+    height: 2rem;
+    width: 2rem;
+}
+
+.delete-icon:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.movies-row {
+    overflow-x: auto;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.movie-image {
+    height: 15rem;
+    width: 15rem;
+    border-radius: 0.3rem;
+}

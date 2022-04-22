@@ -1,0 +1,15 @@
+.movie-img {
+    width: 13.5rem;
+    height: 13.5rem;
+}
+
+.sorting-box {
+    border-radius: 1rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.sorting-label {
+    font-weight: bold;
+    font-size: 1.2rem;
+}

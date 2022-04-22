@@ -1,15 +1,16 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getLoggedInUser } from '../../redux/auth/authSelector';
-import { useReduxSelector } from '../../redux/store';
+import { useStateValue } from './../../StateManager/StateProvider';
+import Login from '../../Pages/login';
 
 const PrivateRoute = (props) => {
-  const user = useReduxSelector(getLoggedInUser());
+  const [state, ] = useStateValue();
+  const user = state.user;
   if (!user) {
     toast.error('برای دسترسی به این بخش باید ابتدا  وارد شوید');
   }
-  return user ? <Route {...props} /> : <Redirect to="/" />;
+  return user ? <Route {...props} /> : <Route exact path="/login" element={Login}></Route>;
 };
 
 export default PrivateRoute;

@@ -1,0 +1,49 @@
+.iemdb-img {
+    height: 4.5rem;
+    width: 4.5rem;
+}
+
+.search-bar {
+    border-color: #ffffff;
+    border: 0;
+    border-radius: .5rem;
+    color: gray;
+}
+
+.fit-content {
+    width: fit-content;
+}
+
+.select-item {
+    
+}
+
+.dropdown {
+
+}
+
+.dropdown:hover {
+    cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: fit-content;
+    z-index: 1;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background-color: rgba(200, 20, 25, 0.5);
+    border-radius: 1rem;
+}
+
+.search-by-width {
+    width: 11rem;
+}

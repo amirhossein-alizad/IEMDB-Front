@@ -1,0 +1,157 @@
+@font-face {
+    font-family: Vazir;
+    src: url('../assets/font/Vazir.eot');
+    src: url('../assets/font/Vazir.eot?#iefix') format('embedded-opentype'),
+         url('../assets/font/Vazir.woff2') format('woff2'),
+         url('../assets/font/Vazir.woff') format('woff'),
+         url('../assets/font/Vazir.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: Vazir;
+    src: url('../assets/font/Vazir-Bold.eot');
+    src: url('../assets/font/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+         url('../assets/font/Vazir-Bold.woff2') format('woff2'),
+         url('../assets/font/Vazir-Bold.woff') format('woff'),
+         url('../assets/font/Vazir-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: Vazir;
+    src: url('../assets/font/Vazir-Black.eot');
+    src: url('../assets/font/Vazir-Black.eot?#iefix') format('embedded-opentype'),
+         url('../assets/font/Vazir-Black.woff2') format('woff2'),
+         url('../assets/font/Vazir-Black.woff') format('woff'),
+         url('../assets/font/Vazir-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: Vazir;
+    src: url('../assets/font/Vazir-Medium.eot');
+    src: url('../assets/font/Vazir-Medium.eot?#iefix') format('embedded-opentype'),
+         url('../assets/font/Vazir-Medium.woff2') format('woff2'),
+         url('../assets/font/Vazir-Medium.woff') format('woff'),
+         url('../assets/font/Vazir-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: Vazir;
+    src: url('../assets/font/Vazir-Light.eot');
+    src: url('../assets/font/Vazir-Light.eot?#iefix') format('embedded-opentype'),
+         url('../assets/font/Vazir-Light.woff2') format('woff2'),
+         url('../assets/font/Vazir-Light.woff') format('woff'),
+         url('../assets/font/Vazir-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
+  @font-face {
+      font-family: Vazir;
+      src: url('../assets/font/Vazir-Thin.eot');
+      src: url('../assets/font/Vazir-Thin.eot?#iefix') format('embedded-opentype'),
+           url('../assets/font/Vazir-Thin.woff2') format('woff2'),
+           url('../assets/font/Vazir-Thin.woff') format('woff'),
+           url('../assets/font/Vazir-Thin.ttf') format('truetype');
+      font-weight: 100;
+      font-style: normal;
+  }
+
+
+/* Small devices (landscape phones, 544px and up) */
+@media (min-width: 544px) {  
+    html {font-size: .4rem;} /*1rem = 16px*/
+}  
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {  
+    html {font-size: .6rem;} /*1rem = 16px*/
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+    html {font-size: .8rem;} /*1rem = 16px*/
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  
+    html {font-size: 1rem;} /*1rem = 16px*/    
+}
+
+body {
+    background-color: #292929;
+    font-family: Vazir;
+}
+
+* {
+    direction: rtl;
+    font-family: Vazir;
+}
+
+input:focus {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.row-reverse {
+    flex-direction: row-reverse;
+}
+
+.background-color-dark-gray {
+    background-color: #292929;
+}
+
+.background-color-red {
+    background-color: #b12025;
+}
+
+.background-color-light-gray {
+    background-color: #4e4e50;
+}
+
+.color-red {
+    color: #b12025;
+}
+
+.background-color-white {
+    background-color: #ffffff;
+}
+
+.color-white {
+    color: #ffffff;
+}
+
+.flex-space-between {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: flex-start;
+}
+
+.flex-center {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    align-items: center;
+    align-items: flex-start;
+}
+
+.flex-vertical-center {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.ltr {
+    direction: ltr;
+}
