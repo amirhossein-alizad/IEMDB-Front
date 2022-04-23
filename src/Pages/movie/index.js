@@ -4,7 +4,7 @@ import './../../css/normalize.css'
 import './../../css/header.css';
 import './../../css/movie.css';
 import { useParams } from "react-router-dom";
-import { addCommentAPI, getMoiveByIdAPI, getMovieActorsAPI, getMovieCommentsAPI } from "../../api";
+import { addCommentAPI, addToWatchlistAPI, getMoiveByIdAPI, getMovieActorsAPI, getMovieCommentsAPI, likeCommentAPI, dislikeCommentAPI } from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../Components/header";
 
@@ -19,6 +19,9 @@ const Moive = () => {
   const [isLoadingComments, setisLoadingComments] = useState(false);
   const [newComment, setnewComment] = useState("");
   const [newCommentLoading, setnewCommentLoading] = useState(false);
+  const [addToWatchlistLoading, setaddToWatchlistLoading] = useState(false);
+  // const [upvoteLoading, setupvoteLoading] = useState(false);
+  // const [downvoteLoading, setdownvoteLoading] = useState(false);
   const { id } = useParams()
 
   const getMovie = () => {
@@ -98,9 +101,25 @@ const Moive = () => {
   }, [moive, actors, comments])
 
   const handleAddToWatchList = (e) => {
-
+    e.preventDefault();
+    setaddToWatchlistLoading(true)
+    addToWatchlistAPI(id)
+      .then(response => {
+        toast.info("فیلم با موفقیت به لیست افزوده شد.")
+      })
+      .catch(e => {
+        console.log(e)
+        console.log(e.response)
+        if (e.response && e.response.data == "MovieAlreadyExists")
+          toast.info("فیلم در حال حاضر در لیست قرار دارد")
+        else if (e.response && e.response.data == "AgeLimitError")
+          toast.error("این فیلم برای سن شما مناسب نیست!")
+        else
+          toast.error("مشکلی در ارتباط با سرور پیش آمده است!")
+      })
+      .finally(() => setaddToWatchlistLoading(false))
   }
-  
+
   const handleAddComment = (e) => {
     e.preventDefault();
     setnewCommentLoading(true);
@@ -116,6 +135,36 @@ const Moive = () => {
         console.log(e.response)
         setnewCommentLoading(false)
         toast.error("مشکلی در ارتباط با سرور پیش آمده است")
+      })
+  }
+
+  const handleLikeComment = (e, comment_id) => {
+    e.preventDefault();
+    toast.info("در حال ارسال اطلاعات!")
+    likeCommentAPI(comment_id)
+      .then(response => {
+        toast.info("نظر شما با موفقیت ثبت شد!")
+        getComments();
+      })
+      .catch(e => {
+        console.log(e)
+        console.log(e.response)
+        toast.error("مشکلی در ارتباط با سرور پیش آمده است!")
+      })
+  }
+
+  const handleDislikeComment = (e, comment_id) => {
+    e.preventDefault();
+    toast.info("در حال ارسال اطلاعات!")
+    dislikeCommentAPI(comment_id)
+      .then(response => {
+        toast.info("نظر شما با موفقیت ثبت شد!")
+        getComments();
+      })
+      .catch(e => {
+        console.log(e)
+        console.log(e.response)
+        toast.error("مشکلی در ارتباط با سرور پیش آمده است!")
       })
   }
 
@@ -166,7 +215,7 @@ const Moive = () => {
         <div className="col"></div>
         <div className="col"></div>
         <div className="col-4">
-          <div className="ltr color-white m-3"> تاریخ انتشار:   {isMovieReady() ? moive.releaseDate : null} </div>
+          <div className="ltr color-white m-3"> تاریخ انتشار:   {isMovieReady() ? moive.releaseDate : "...درحال بارگزاری"} </div>
           <div className="line color-white mx-5 my-4"></div>
           <div className="color-white m-3">
             {isMovieReady() ? moive.summary : null}
@@ -175,7 +224,10 @@ const Moive = () => {
         <div className="col">
           {isMovieReady() ? (
             <div className="add-to-watchlist-button">
-              <button type="button" className="btn btn-danger" onClick={(e) => handleAddToWatchList(e)}>اضافه کردن به لیست</button>
+              <button type="button" className="btn btn-danger" onClick={(e) => handleAddToWatchList(e)}>
+                اضافه کردن به لیست
+                {addToWatchlistLoading ? <div className="spinner-border" style={{ width: "1rem", height: "1rem" }} role="status"></div> : null}
+              </button>
             </div>
           ) : null}
         </div>
@@ -204,8 +256,8 @@ const Moive = () => {
           <div className="row m-1 ltr">
             <div className="col ltr">
               <button className="btn btn-success px-5 py-1" onClick={(e) => handleAddComment(e)}>
-                 ثبت 
-                 {newCommentLoading ? <div className="spinner-border" role="status"></div> : null}
+                ثبت
+                {newCommentLoading ? <div className="spinner-border" style={{ width: "1rem", height: "1rem" }} role="status"></div> : null}
               </button>
             </div>
           </div>
@@ -226,13 +278,13 @@ const Moive = () => {
                     <div className="row">
                       <div className="col mx-2">
                         <div className="row upvote-container">
-                          <div className="upvote"></div>
+                          <div className="upvote" onClick={(e) => handleLikeComment(e, item.id)}></div>
                         </div>
                         <div className="row justify-content-center mt-1">{item.like}</div>
                       </div>
                       <div className="col  mx-2">
                         <div className="row downvote-container">
-                          <div className="downvote"></div>
+                          <div className="downvote" onClick={(e) => handleDislikeComment(e, item.id)}></div>
                         </div>
                         <div className="row justify-content-center mt-1">{item.dislike}</div>
                       </div>

@@ -42,6 +42,14 @@ export const getMovieCommentsAPI = (id) => {
     return axios.get(`${BASE_URL}/movies/${id}/comments`);
 }
 
+export const getWatchlistAPI = () => {
+    return axios.get(`${BASE_URL}/watchlist`);
+}
+
+export const addToWatchlistAPI = (id) => {
+    return axios.post(`${BASE_URL}/watchlist`, {movie_id: id})
+}
+
 export const addCommentAPI = (id, comment) => {
     return axios.post(`${BASE_URL}/movies/${id}/comments`, {comment: comment})
 }

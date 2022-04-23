@@ -6,9 +6,12 @@ import React, { useEffect, useState } from "react";
 import Header from '../../Components/header';
 import { filterMoviesAPI, getMoviesAPI } from '../../api';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const Movies = () => {
   document.body.style.backgroundColor = '#292929';
+  const navigator = useNavigate()
+
   const [movies, setmovies] = useState([]);
   const [searchKey, setsearchKey] = useState("");
   const [searchBy, setsearchBy] = useState("");
@@ -63,7 +66,7 @@ const Movies = () => {
               (
                 movies.length > 0 ? movies.map((item, index) => (
                   <div className="m-4" key={index}>
-                    <img alt="movie-image" className="movie-img" src={item.coverImage} />
+                    <img alt="movie-image" className="movie-img" src={item.coverImage} onClick={e => navigator(`/movies/${item.id}`)}/>
                   </div>
                 )) : <div className='color-white'>فیلمی مطابق با این اطلاعات وجود ندارد</div>
               )

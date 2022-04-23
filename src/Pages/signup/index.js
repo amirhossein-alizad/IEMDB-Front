@@ -71,7 +71,7 @@ const Signup = () => {
           <div className="action">
             <button onClick={(e) => handleSignup(e)}>
               ثبت نام
-              {isLoading ? <div className="spinner-border" role="status"></div> : null}
+              {isLoading ? <div className="spinner-border" style={{ width: "1rem", height: "1rem" }} role="status"></div> : null}
             </button>
             <button onClick={(e) => navigator("/")}> ورود </button>
           </div>

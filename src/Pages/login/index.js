@@ -53,7 +53,7 @@ const Login = () => {
             <button onClick={() => navigator("/signup")}>ثبت نام</button>
             <button onClick={(e) => handleLogin(e)}>
               <span>ورود</span>
-              {isLoading ? <div className="spinner-border" role="status"></div> : null}
+              {isLoading ? <div className="spinner-border" style={{ width: "1rem", height: "1rem" }} role="status"></div> : null}
             </button>
           </div>
         </form>
