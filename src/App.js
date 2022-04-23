@@ -7,6 +7,9 @@ import Signup from './Pages/signup';
 import { toast } from 'react-toastify';
 import NotFound from './Pages/notFound';
 import Movies from './Pages/movies';
+import { useStateValue } from './StateManager/StateProvider';
+import Actions from './StateManager/actions';
+import Moive from './Pages/movie';
 
 function App() {
   return (
@@ -17,7 +20,11 @@ function App() {
 
           <Route path="/signup" element={<Signup></Signup>}></Route>
 
-          <Route path="/movies" element={<Movies></Movies>}></Route>
+          <Route path="/movies" element={<PrivateRoute></PrivateRoute>}>
+            <Route path="/movies" element={<Movies></Movies>}></Route>
+          </Route>
+
+          <Route path='/movies/:id' element={<Moive></Moive>}></Route>
           
           {/* <PrivateRoute exact path="/movies">
 
@@ -43,3 +50,11 @@ function App() {
 }
 
 export default App;
+
+export const Logout = () => {
+  const [state, dispatch] = useStateValue()
+  dispatch({
+    type: Actions.UNSET_USER,
+    payload: null
+  })
+}

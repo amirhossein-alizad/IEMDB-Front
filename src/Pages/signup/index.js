@@ -4,15 +4,19 @@ import './../../css/signup_login.css';
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { SignupAPI } from "../../api";
+import { useStateValue } from "../../StateManager/StateProvider";
+import Actions from "../../StateManager/actions";
 
 
 const Signup = () => {
+  const navigator = useNavigate();
   const [email, setemail] = useState(null);
   const [password, setpassword] = useState(null);
   const [name, setname] = useState(null);
   const [nickname, setnickname] = useState(null);
   const [birthDate, setbirthDate] = useState(null);
   const [isLoading, setisLoading] = useState(false);
+  const [state, dispatch] = useStateValue();
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -21,16 +25,26 @@ const Signup = () => {
       .then((response) => {
         toast.info("ثبت‌نام شما به موفقیت انجام شد!")
         setisLoading(false);
+        dispatch({
+          type: Actions.SET_USER,
+          payload: {
+            email: email,
+            password: password,
+            name: name,
+            nickname: nickname,
+            birthDate: birthDate
+          }
+        })
+        navigator("/movies")
       })
       .catch(e => {
         console.log(e)
         console.log(e.response)
         toast.error("اطلاعات را به صورت کامل و درست وارد کنید!")
         setisLoading(false);
+        
       })
   }
-
-  const navigator = useNavigate();
 
   return (
     <div className="bg-image">

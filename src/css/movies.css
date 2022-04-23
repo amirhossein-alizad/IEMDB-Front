@@ -1,6 +1,7 @@
 .movie-img {
     width: 13.5rem;
     height: 13.5rem;
+    border-radius: 1rem;
 }
 
 .sorting-box {
