@@ -8,8 +8,7 @@
     overflow: hidden;
 }
 
-.movie-poster {
-    background-image: url("../assets/images/godfather.jpg");
+.movie-poster-div {
     background-size: 100% 100%;
 }
 

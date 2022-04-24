@@ -11,6 +11,7 @@ import { useStateValue } from './StateManager/StateProvider';
 import Actions from './StateManager/actions';
 import Moive from './Pages/movie';
 import Actor from './Pages/actor';
+import Watchlist from './Pages/watchlist';
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
         {/* </Route> */}
 
         {/* <Route path='/watchlist' element={<PrivateRoute></PrivateRoute>}> */}
-          <Route path="/watchlist" element={<PrivateRoute></PrivateRoute>}></Route>
+          <Route path="/watchlist" element={<Watchlist></Watchlist>}></Route>
         {/* </Route> */}
 
         <Route path="*" element={<NotFound></NotFound>}></Route>

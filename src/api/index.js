@@ -69,3 +69,11 @@ export const getActorAPI = (id) => {
 export const getActorMoviesAPI = (id) => {
     return axios.get(`${BASE_URL}/actors/${id}/movies`)
 }
+
+export const getRecommendationsAPI = () => {
+    return axios.get(`${BASE_URL}/recommendations`)
+}
+
+export const removeFromWatchlistAPI = (id) => {
+    return axios.post(`${BASE_URL}/watchlist/remove`, {movie_id: id})
+}
