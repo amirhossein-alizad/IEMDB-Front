@@ -61,3 +61,11 @@ export const likeCommentAPI = (id) => {
 export const dislikeCommentAPI = (id) => {
     return axios.post(`${BASE_URL}/comments/${id}/dislike`)
 }
+
+export const getActorAPI = (id) => {
+    return axios.get(`${BASE_URL}/actors/${id}`)
+}
+
+export const getActorMoviesAPI = (id) => {
+    return axios.get(`${BASE_URL}/actors/${id}/movies`)
+}

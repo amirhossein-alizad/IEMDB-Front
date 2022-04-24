@@ -10,6 +10,7 @@ import Movies from './Pages/movies';
 import { useStateValue } from './StateManager/StateProvider';
 import Actions from './StateManager/actions';
 import Moive from './Pages/movie';
+import Actor from './Pages/actor';
 
 function App() {
   return (
@@ -20,33 +21,22 @@ function App() {
 
         <Route path="/signup" element={<Signup></Signup>}></Route>
 
-        <Route path="/movies" element={<PrivateRoute></PrivateRoute>}>
+        {/* <Route path="/movies" element={<PrivateRoute></PrivateRoute>}> */}
           <Route path="/movies" element={<Movies></Movies>}></Route>
-        </Route>
+        {/* </Route> */}
 
-        <Route path='/movies/:id' element={<PrivateRoute></PrivateRoute>}>
+        {/* <Route path='/movies/:id' element={<PrivateRoute></PrivateRoute>}> */}
           <Route path='/movies/:id' element={<Moive></Moive>}></Route>
-        </Route>
+        {/* </Route> */}
 
 
-        <Route path='/actors/:id' element={<PrivateRoute></PrivateRoute>}>
-          <Route></Route>
-        </Route>
-        {/* <PrivateRoute exact path="/movies">
+        {/* <Route path='/actors/:id' element={<PrivateRoute></PrivateRoute>}> */}
+          <Route path='/actors/:id' element={<Actor></Actor>}></Route>
+        {/* </Route> */}
 
-          </PrivateRoute> */}
-
-        {/* <PrivateRoute exact path="/movies/:id">
-
-          </PrivateRoute>
-
-          <PrivateRoute exact path="/actors/:id">
-
-          </PrivateRoute>
-
-          <PrivateRoute exact path="/watchlist">
-            
-          </PrivateRoute> */}
+        {/* <Route path='/watchlist' element={<PrivateRoute></PrivateRoute>}> */}
+          <Route path="/watchlist" element={<PrivateRoute></PrivateRoute>}></Route>
+        {/* </Route> */}
 
         <Route path="*" element={<NotFound></NotFound>}></Route>
 

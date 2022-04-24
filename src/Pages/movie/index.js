@@ -3,7 +3,7 @@ import './../../css/base.css';
 import './../../css/normalize.css'
 import './../../css/header.css';
 import './../../css/movie.css';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addCommentAPI, addToWatchlistAPI, getMoiveByIdAPI, getMovieActorsAPI, getMovieCommentsAPI, likeCommentAPI, dislikeCommentAPI } from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../Components/header";
@@ -11,6 +11,7 @@ import Header from "../../Components/header";
 const Moive = () => {
   document.body.style.backgroundColor = '#292929';
 
+  const navigator = useNavigate()
   const [moive, setmoive] = useState(null);
   const [comments, setcomments] = useState([]);
   const [actors, setactors] = useState([]);
@@ -237,7 +238,7 @@ const Moive = () => {
       <div className="container background-color-light-gray actor-container my-5">
         <div className="ltr actor-images-row">
           {isActorsReady() ? (
-            actors.map((item, index) => <img alt={item.name} id={index} className="m-4 actor-image" src={item.image} />)
+            actors.map((item, index) => <img alt={item.name} id={index} className="m-4 actor-image" src={item.image} onClick={(e) => navigator(`/actors/${item.id}`)}/>)
           ) : <div className="text-center"><div className="movie-poster spinner-border text-danger m-5" style={{ width: "3rem", height: "3rem" }} role="status"></div></div>
           }
 
