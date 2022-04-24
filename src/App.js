@@ -14,23 +14,29 @@ import Moive from './Pages/movie';
 function App() {
   return (
     <Router>
-        <Routes>
-          
-          <Route path="/" element={<Login></Login>}></Route>
+      <Routes>
 
-          <Route path="/signup" element={<Signup></Signup>}></Route>
+        <Route path="/" element={<Login></Login>}></Route>
 
-          <Route path="/movies" element={<PrivateRoute></PrivateRoute>}>
-            <Route path="/movies" element={<Movies></Movies>}></Route>
-          </Route>
+        <Route path="/signup" element={<Signup></Signup>}></Route>
 
+        <Route path="/movies" element={<PrivateRoute></PrivateRoute>}>
+          <Route path="/movies" element={<Movies></Movies>}></Route>
+        </Route>
+
+        <Route path='/movies/:id' element={<PrivateRoute></PrivateRoute>}>
           <Route path='/movies/:id' element={<Moive></Moive>}></Route>
-          
-          {/* <PrivateRoute exact path="/movies">
+        </Route>
+
+
+        <Route path='/actors/:id' element={<PrivateRoute></PrivateRoute>}>
+          <Route></Route>
+        </Route>
+        {/* <PrivateRoute exact path="/movies">
 
           </PrivateRoute> */}
 
-          {/* <PrivateRoute exact path="/movies/:id">
+        {/* <PrivateRoute exact path="/movies/:id">
 
           </PrivateRoute>
 
@@ -42,9 +48,9 @@ function App() {
             
           </PrivateRoute> */}
 
-          <Route path="*" element={<NotFound></NotFound>}></Route>
+        <Route path="*" element={<NotFound></NotFound>}></Route>
 
-        </Routes>
+      </Routes>
     </Router>
   );
 }
