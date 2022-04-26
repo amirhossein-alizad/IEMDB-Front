@@ -85,7 +85,7 @@ const Watchlist = () => {
 
       <div className="container mt-5 pt-5">
         {isMoviesLoading ? <div className="text-center"><div className="movie-poster spinner-border text-danger m-5" style={{ width: "3rem", height: "3rem" }} role="status"></div></div> : (
-          (moives.length == 0 ? <div className='color-white text-center'>فیلمی در لیست وجود ندارد</div> : moives.map((item, index) => {
+          (moives.length === 0 ? <div className='color-white text-center'>فیلمی در لیست وجود ندارد</div> : moives.map((item, index) => {
             return (
               <>
                 <div className="row background-color-light-gray color-white movie-box m-5">

@@ -4,7 +4,7 @@ import './../../css/normalize.css'
 import './../../css/header.css';
 import './../../css/movie.css';
 import { useNavigate, useParams } from "react-router-dom";
-import { addCommentAPI, addToWatchlistAPI, getMoiveByIdAPI, getMovieActorsAPI, getMovieCommentsAPI, likeCommentAPI, dislikeCommentAPI } from "../../api";
+import { addCommentAPI, addToWatchlistAPI, getMoiveByIdAPI, getMovieActorsAPI, getMovieCommentsAPI, likeCommentAPI, dislikeCommentAPI, rateMovieAPI } from "../../api";
 import { toast } from "react-toastify";
 import Header from "../../Components/header";
 
@@ -23,6 +23,8 @@ const Moive = () => {
   const [addToWatchlistLoading, setaddToWatchlistLoading] = useState(false);
   // const [upvoteLoading, setupvoteLoading] = useState(false);
   // const [downvoteLoading, setdownvoteLoading] = useState(false);
+  const [showRating, setshowRating] = useState(true);
+  const [numberOfStars, setnumberOfStars] = useState(5);
   const { id } = useParams()
 
   const getMovie = () => {
@@ -83,10 +85,11 @@ const Moive = () => {
   }
 
   const getNumberOfVotes = (movie) => {
-    if (movie.User == null)
+    console.log(moive.user)
+    if (movie.user == null)
       return 0;
     else
-      return moive.User.length
+      return moive.user.length
   }
 
   useEffect(() => {
@@ -111,9 +114,9 @@ const Moive = () => {
       .catch(e => {
         console.log(e)
         console.log(e.response)
-        if (e.response && e.response.data == "MovieAlreadyExists")
+        if (e.response && e.response.data === "MovieAlreadyExists")
           toast.info("فیلم در حال حاضر در لیست قرار دارد")
-        else if (e.response && e.response.data == "AgeLimitError")
+        else if (e.response && e.response.data === "AgeLimitError")
           toast.error("این فیلم برای سن شما مناسب نیست!")
         else
           toast.error("مشکلی در ارتباط با سرور پیش آمده است!")
@@ -169,27 +172,70 @@ const Moive = () => {
       })
   }
 
+  const RatingSection = () => {
+    if (showRating)
+      return (
+        <>
+          {isMovieReady() ? Array(Math.ceil(moive.rating)).fill(0).map((item, index) => {
+            return <div className="col text-center p-0 m-0"><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="gold" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
+          }) : null}
+          {isMovieReady() ? Array(10 - Math.ceil(moive.rating)).fill(0).map((item, index) => {
+            return <div className="col text-center p-0 m-0" ><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="gray" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
+          }) : null}
+        </>
+      )
+    else
+      return (
+        <>
+          {isMovieReady() ? Array(numberOfStars).fill(0).map((item, index) => {
+            return <div className="col text-center p-0 m-0" onClick={e => sendRating(e)} onMouseEnter={e => setnumberOfStars(index+1)}><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="gold" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
+          }) : null}
+          {isMovieReady() ? Array(10-numberOfStars).fill(0).map((item, index) => {
+            return <div className="col text-center p-0 m-0" onClick={e => sendRating(e)} onMouseEnter={e => setnumberOfStars(numberOfStars + index + 1)}><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="gray" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
+          }) : null}
+        </>
+      )
+  }
+
+  const sendRating = (e) => {
+    e.preventDefault();
+    toast.info("در حال ارسال اطلاعات!")
+    rateMovieAPI(id, numberOfStars)
+      .then(response => {
+        toast.info("امتیاز شما با موفقیت ثبت شد!")
+        getMovie()
+      })
+      .catch(e => {
+        console.log(e)
+        console.log(e.response)
+        toast.error("مشکلی در ارسال اطلاعات پیش آمده است!")
+      })
+  }
+
+  const onMouseEnterRatingSection = (e) => {
+    e.preventDefault()
+    setshowRating(false)
+  }
+
+  const onMouseLeaveRatingSection = (e) => {
+    e.preventDefault()
+    setshowRating(true)
+  }
+
   return (
     <>
       <Header showSearch={false} SearchBy={[null, null]} SearchKey={[null, null]}></Header>
-      {(isLoadingMovie || moive == null) ? <div className="text-center"><div className="movie-poster spinner-border text-danger m-5" style={{ width: "5rem", height: "5rem" }} role="status"></div></div> :
+      {!isMovieReady() ? <div className="text-center"><div className="movie-poster spinner-border text-danger m-5" style={{ width: "5rem", height: "5rem" }} role="status"></div></div> :
         (<div className="movie-poster" style={{ backgroundImage: `url(${moive.coverImage})` }}>
           <div className="row empty-row"></div>
           <div className="row">
             <div className="col"></div>
             <div className="col movie-picture-height transparent-red color-white">
               <div className="row p-3 movie-imeb-rate justify-content-center">{isMovieReady() ? moive.imdbRate : null}</div>
-              <div className="row">
-                <div className="col p-0 m-0"><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="#ffce31" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
-                <div className="col p-0 m-0"><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="#ffce31" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
-                <div className="col p-0 m-0"><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="#ffce31" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
-                <div className="col p-0 m-0"><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="#ffce31" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
-                <div className="col p-0 m-0"><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="#ffce31" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
-                <div className="col p-0 m-0"><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="#ffce31" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
-                <div className="col p-0 m-0"><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="#ffce31" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
-                <div className="col p-0 m-0"><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="#ffce31" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
-                <div className="col p-0 m-0"><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="#ffce31" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
-                <div className="col p-0 m-0"><svg height="1.5rem" width="1.5rem" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" preserveAspectRatio="xMidYMid meet" viewBox="0 0 64 64"><path fill="#ffce31" d="M62 25.2H39.1L32 3l-7.1 22.2H2l18.5 13.7l-7 22.1L32 47.3L50.5 61l-7.1-22.2L62 25.2z" /></svg></div>
+              <div className="row ltr" onMouseEnter={(e) => onMouseEnterRatingSection(e)} onMouseLeave={(e) => onMouseLeaveRatingSection(e)}>
+                <div className="col-md-auto"></div>
+                <RatingSection></RatingSection>
+                <div className="col-md-auto"></div>
               </div>
               <div className="row p-3">
                 <div className="col">
@@ -238,7 +284,7 @@ const Moive = () => {
       <div className="container background-color-light-gray actor-container my-5">
         <div className="ltr actor-images-row">
           {isActorsReady() ? (
-            actors.map((item, index) => <img alt={item.name} id={index} className="m-4 actor-image" src={item.image} onClick={(e) => navigator(`/actors/${item.id}`)}/>)
+            actors.map((item, index) => <img alt={item.name} id={index} className="m-4 actor-image" src={item.image} onClick={(e) => navigator(`/actors/${item.id}`)} />)
           ) : <div className="text-center"><div className="movie-poster spinner-border text-danger m-5" style={{ width: "3rem", height: "3rem" }} role="status"></div></div>
           }
 

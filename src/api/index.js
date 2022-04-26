@@ -77,3 +77,7 @@ export const getRecommendationsAPI = () => {
 export const removeFromWatchlistAPI = (id) => {
     return axios.post(`${BASE_URL}/watchlist/remove`, {movie_id: id})
 }
+
+export const rateMovieAPI = (id, rate) => {
+    return axios.post(`${BASE_URL}/movies/${id}/rate`, {quantity: rate})
+}
