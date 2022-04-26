@@ -199,6 +199,7 @@ const Moive = () => {
 
   const sendRating = (e) => {
     e.preventDefault();
+    setshowRating(true)
     toast.info("در حال ارسال اطلاعات!")
     rateMovieAPI(id, numberOfStars)
       .then(response => {
