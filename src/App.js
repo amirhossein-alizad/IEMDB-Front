@@ -12,6 +12,7 @@ import Actions from './StateManager/actions';
 import Moive from './Pages/movie';
 import Actor from './Pages/actor';
 import Watchlist from './Pages/watchlist';
+import Callback from './Pages/callback';
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
         <Route path="/" element={<Login></Login>}></Route>
 
         <Route path="/signup" element={<Signup></Signup>}></Route>
+
+        <Route path="/callback?code=:code" element={<Callback></Callback>}></Route>
 
         {/* <Route path="/movies" element={<PrivateRoute></PrivateRoute>}> */}
           <Route path="/movies" element={<Movies></Movies>}></Route>

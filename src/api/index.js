@@ -81,3 +81,8 @@ export const removeFromWatchlistAPI = (id) => {
 export const rateMovieAPI = (id, rate) => {
     return axios.post(`${BASE_URL}/movies/${id}/rate`, {quantity: rate})
 }
+
+export const callbackAPI = (code) => {
+    const params = new URLSearchParams([['code', code]]);
+    return axios.get(`${BASE_URL}/callback`, { params })
+}

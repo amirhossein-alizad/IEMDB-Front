@@ -48,6 +48,7 @@ const Login = () => {
               <input type="password" placeholder="رمز عبور" autoComplete="new-password" onChange={(e) => setPassword(e.target.value)} />
             </div>
             <a href="#" className="link">رمز عبور خود را فراموش کرده اید؟</a>
+            <a href="https://github.com/login/oauth/authorize?client_id=106f2d2754b000d6c3a0&scope=user">لاگین با گیت هاب</a>
           </div>
           <div className="action">
             <button onClick={() => navigator("/signup")}>ثبت نام</button>
@@ -55,6 +56,7 @@ const Login = () => {
               <span>ورود</span>
               {isLoading ? <div className="spinner-border" style={{ width: "1rem", height: "1rem" }} role="status"></div> : null}
             </button>
+            <a href="https://github.com/login/oauth/authorize?client_id=106f2d2754b000d6c3a0&scope=user"></a>
           </div>
         </form>
       </div>
