@@ -34,6 +34,11 @@ const Header = ({ showSearch, SearchKey, SearchBy, children }) => {
     navigator("/")
   }
 
+  const goToWatchlist = (e) => {
+    e.preventDefault();
+    navigator("/watchlist")
+  }
+
   return (
     <div className="container-fluid background-color-red">
       <div className="row justify-content-md-center flex-space-between">
@@ -46,7 +51,7 @@ const Header = ({ showSearch, SearchKey, SearchBy, children }) => {
             </svg>
             <div className="dropdown-content p-1 fit-content">
               {user ? <div className="fit-content m-3"><a className="m-3 color-white" href="#">{user.email}</a></div> : <div className="fit-content m-3"><a className="m-3 color-white" href="/signup">ثبت‌نام</a></div>}
-              {user ? <div className="fit-content m-3"><a className="m-3 color-white" href="/watchlist">watchlist</a></div> : <div className="fit-content m-3"><a className="m-3 color-white" href="/">ورود</a></div>}
+              {user ? <div className="fit-content m-3"><a className="m-3 color-white" href="#" onClick={e => goToWatchlist(e)}>watchlist</a></div> : <div className="fit-content m-3"><a className="m-3 color-white" href="/">ورود</a></div>}
               {user ? <div className="fit-content m-3"><a className="m-3 color-white" href="/" onClick={e => logout(e)}>logout</a></div> : null }
             </div>
           </div>

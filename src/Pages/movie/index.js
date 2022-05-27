@@ -140,6 +140,9 @@ const Moive = () => {
         setnewCommentLoading(false)
         toast.error("مشکلی در ارتباط با سرور پیش آمده است")
       })
+      .finally(() => {
+        setnewComment("");
+      })
   }
 
   const handleLikeComment = (e, comment_id) => {
@@ -299,7 +302,7 @@ const Moive = () => {
           <div className="row m-1">دیدگاه خود را اضافه کنید: </div>
           <div className="row mx-3 my-1 gray-line"></div>
           <div className="row m-1 ">
-            <textarea rows="2" className="search-bar" onChange={(e) => setnewComment(e.target.value)}>{newComment}</textarea>
+            <textarea rows="2" className="search-bar" value={newComment} onChange={(e) => setnewComment(e.target.value)}>{newComment}</textarea>
           </div>
           <div className="row m-1 ltr">
             <div className="col ltr">

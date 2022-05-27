@@ -15,7 +15,11 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const [isLoading, setisLoading] = useState(false);
   const [state, dispatch] = useStateValue();
-  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (state.user)
+      navigator("/movies")
+  })
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -30,7 +34,6 @@ const Login = () => {
         })
         localStorage.setItem("token", response.data.token);
         getUser();
-        navigator("/movies");
       })
       .catch((e) => {
         console.log(e, e.response)
@@ -40,6 +43,7 @@ const Login = () => {
   }
 
   const getUser = () => {
+    const token = localStorage.getItem("token");
     if (!token)
       return;
     getUserAPI()
@@ -48,6 +52,12 @@ const Login = () => {
           type: Actions.SET_USER,
           payload: response.data
         })
+        navigator("/movies");
+      })
+      .catch((e) => {
+        console.log(e, e.response)
+        setisLoading(false)
+        toast.error("مشکلی در دریافت اطلاعات کاربر پیش آمده است!")
       })
   }
 
@@ -63,8 +73,6 @@ const Login = () => {
             <div className="input-field">
               <input type="password" placeholder="رمز عبور" autoComplete="new-password" onChange={(e) => setPassword(e.target.value)} />
             </div>
-            <a href="#" className="link">ساخت اکانت</a>
-            <br></br>
             <a className="link" href="https://github.com/login/oauth/authorize?client_id=f91cb2bad21d5c303ca9&scope=user">لاگین با گیت هاب</a>
           </div>
           <div className="action">

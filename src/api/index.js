@@ -92,6 +92,7 @@ export const addCommentAPI = (id, comment) => {
 export const likeCommentAPI = (id) => {
     return axios.post(
         `${BASE_URL}/comments/${id}/like`,
+        {}, 
         {headers: {Authorization: `Bearer ${getToken()}`}}
     )
 }
@@ -99,6 +100,7 @@ export const likeCommentAPI = (id) => {
 export const dislikeCommentAPI = (id) => {
     return axios.post(
         `${BASE_URL}/comments/${id}/dislike`,
+        {}, 
         {headers: {Authorization: `Bearer ${getToken()}`}}
     )
 }

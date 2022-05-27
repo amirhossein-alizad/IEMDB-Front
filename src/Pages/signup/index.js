@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './../../css/base.css';
 import './../../css/signup_login.css';
 import { toast } from "react-toastify";
@@ -17,6 +17,11 @@ const Signup = () => {
   const [birthDate, setbirthDate] = useState(null);
   const [isLoading, setisLoading] = useState(false);
   const [state, dispatch] = useStateValue();
+
+  useEffect(() => {
+    if (state.user)
+      navigator("/movies")
+  })
 
   const handleSignup = (e) => {
     e.preventDefault();
