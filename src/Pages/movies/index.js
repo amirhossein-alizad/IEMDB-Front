@@ -34,6 +34,9 @@ const Movies = () => {
   }, [])
 
   useEffect(() => {
+    if (searchBy === "" && sortBy === "")
+      return;
+
     setisLoading(true)
     filterMoviesAPI(searchKey, searchBy, sortBy)
       .then(response => {

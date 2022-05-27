@@ -1,7 +1,8 @@
 import Actions from './actions'
 
 export const initialState = {
-    user: null
+    user: null,
+    token: null
 }
 
 export const Reducer = (state, action) => {
@@ -15,6 +16,16 @@ export const Reducer = (state, action) => {
             return {
                 ...state,
                 user: null
+            }
+        case Actions.SET_TOKEN:
+            return {
+                ...state,
+                token: action.payload
+            }
+        case Actions.UNSET_TOKEN:
+            return {
+                ...state,
+                token: null
             }
         default:
             return state;

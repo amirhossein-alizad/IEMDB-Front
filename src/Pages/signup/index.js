@@ -35,6 +35,11 @@ const Signup = () => {
             birthDate: birthDate
           }
         })
+        dispatch({
+          type: Actions.SET_TOKEN,
+          payload: response.data.token
+        })
+        localStorage.setItem("token", response.data.token);
         navigator("/movies")
       })
       .catch(e => {

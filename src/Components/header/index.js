@@ -4,9 +4,12 @@ import './../../css/base.css';
 import React, { useEffect, useState } from "react";
 import Logo from './../../assets/images/logo-image.png'
 import { useStateValue } from '../../StateManager/StateProvider';
+import { useNavigate } from 'react-router-dom';
+import Actions from '../../StateManager/actions';
 
 const Header = ({ showSearch, SearchKey, SearchBy, children }) => {
   const [state, dispatch] = useStateValue();
+  const navigator = useNavigate();
   const user = state.user;
   const [searchKey, setSearchKey] = SearchKey
   const [searchBy, setSearchBy] = SearchBy
@@ -15,6 +18,20 @@ const Header = ({ showSearch, SearchKey, SearchBy, children }) => {
   const handleSetSearchBy = (searchBy, searchByText) => {
     setSearchBy(searchBy)
     setSearchByText(searchByText)
+  }
+
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: Actions.UNSET_TOKEN,
+      payload: null
+    })
+    dispatch({
+      type: Actions.UNSET_USER,
+      payload: null
+    })
+    localStorage.removeItem("token")
+    navigator("/")
   }
 
   return (
@@ -28,8 +45,9 @@ const Header = ({ showSearch, SearchKey, SearchBy, children }) => {
                 d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10s10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z" />
             </svg>
             <div className="dropdown-content p-1 fit-content">
-              {user ? <div className="fit-content m-3"><a className="m-3 color-white" href="#">{user.email}</a></div> : <div className="fit-content m-3"><a className="m-3 color-white" href="#">ثبت‌نام</a></div>}
-              {user ? <div className="fit-content m-3"><a className="m-3 color-white" href="#">watchlist</a></div> : <div className="fit-content m-3"><a className="m-3 color-white" href="#">ورود</a></div>}
+              {user ? <div className="fit-content m-3"><a className="m-3 color-white" href="#">{user.email}</a></div> : <div className="fit-content m-3"><a className="m-3 color-white" href="/signup">ثبت‌نام</a></div>}
+              {user ? <div className="fit-content m-3"><a className="m-3 color-white" href="/watchlist">watchlist</a></div> : <div className="fit-content m-3"><a className="m-3 color-white" href="/">ورود</a></div>}
+              {user ? <div className="fit-content m-3"><a className="m-3 color-white" href="/" onClick={e => logout(e)}>logout</a></div> : null }
             </div>
           </div>
         </div>
