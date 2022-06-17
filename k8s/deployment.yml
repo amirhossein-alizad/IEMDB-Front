@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: iemdb-frontend
-          image: quay.io/pkootzari2/iemdb-front:9298fde3d9ce57a06cd40d9a7f7f6235e2f2ff7c
+          image: quay.io/pkootzari2/iemdb-front:9ce4513824ac07e328b1d93c8120efe84b429407
           ports:
             - containerPort: 80
 #          env:
