@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iemdb-frontend-deployment
+  namespace: 810197546-810197570
+spec:
+  selector:
+    matchLabels:
+      app: iemdb-frontend
+  strategy:
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 0
+    type: RollingUpdate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: iemdb-frontend
+    spec:
+      containers:
+        - name: iemdb-frontend
+          image: quay.io/pkootzari2/iemdb-front:9298fde3d9ce57a06cd40d9a7f7f6235e2f2ff7c
+          ports:
+            - containerPort: 80
+#          env:
+#            - name: prometheus_multiproc_dir
+#              value: /prometheus_multiproc_dir
+          resources:
+            requests:
+              cpu: 200m
+              memory: 400Mi
+            limits:
+              cpu: 200m
+              memory: 400Mi
+      imagePullSecrets:
+        - name: regcred
